@@ -60,14 +60,12 @@ export async function GET(req: Request) {
   }
 
   // 4. Write a small heartbeat row to site_content (upsert) so every table
-  //    (incl. write path) gets touched each day. We store the last ping time.
+  //    (incl. write path) gets touched each day. Schema is (key, value, updated_at).
   try {
     const { error } = await admin.from("site_content").upsert(
       {
         key: "system.last_keepalive",
         value: new Date().toISOString(),
-        section: "system",
-        description: "Auto-updated daily by cron to prevent Supabase pause.",
         updated_at: new Date().toISOString(),
       },
       { onConflict: "key" },
