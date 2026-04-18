@@ -1,8 +1,9 @@
 "use client"
 
 import { AuGear } from "./au-gear"
+import { useCopy } from "./content-provider"
 
-const items = [
+const DEFAULT_ITEMS = [
   "AUTOMATE",
   "UNIFY",
   "ORCHESTRATE",
@@ -16,6 +17,19 @@ const items = [
 ]
 
 export function AuMarquee() {
+  const t = useCopy()
+  const raw = t("marquee.items", DEFAULT_ITEMS.join(","))
+  const items =
+    raw
+      .split(",")
+      .map((s) => s.trim())
+      .filter(Boolean).length > 0
+      ? raw
+          .split(",")
+          .map((s) => s.trim())
+          .filter(Boolean)
+      : DEFAULT_ITEMS
+
   const loop = [...items, ...items, ...items]
   return (
     <div
@@ -29,12 +43,12 @@ export function AuMarquee() {
         className="ticker-track flex w-max items-center gap-8 whitespace-nowrap"
         style={{ ["--ticker-duration" as string]: "55s" }}
       >
-        {loop.map((t, i) => (
+        {loop.map((w, i) => (
           <span
             key={i}
             className="flex items-center gap-8 font-sans text-2xl font-bold tracking-[-0.02em] text-paper md:text-4xl"
           >
-            {t}
+            {w}
             <span className="inline-flex items-center justify-center text-red">
               <AuGear
                 size={28}

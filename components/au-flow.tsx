@@ -2,8 +2,16 @@
 
 import { AuDiagram } from "./au-diagram"
 import { AuGear } from "./au-gear"
+import { useCopy } from "./content-provider"
 
 export function AuFlow() {
+  const t = useCopy()
+  const points: [string, string][] = [
+    ["01", t("flow.point_1", "One URL. One spelling. One story.")],
+    ["02", t("flow.point_2", "No hyphens, numbers, or plurals.")],
+    ["03", t("flow.point_3", "Literal meaning = your product promise.")],
+  ]
+
   return (
     <section
       id="flow"
@@ -12,10 +20,10 @@ export function AuFlow() {
       <div className="border-b-2 border-ink">
         <div className="mx-auto flex max-w-[1440px] items-baseline justify-between px-4 py-3 md:px-8">
           <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-ink">
-            § 01 / The Thesis
+            {t("flow.section_label", "§ 01 / The Thesis")}
           </p>
           <p className="hidden font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-ink md:block">
-            fragmented → unified
+            {t("flow.section_hint", "fragmented → unified")}
           </p>
         </div>
       </div>
@@ -26,7 +34,7 @@ export function AuFlow() {
           <div className="flex items-center gap-3">
             <AuGear size={28} teeth={10} direction="cw" className="text-red" />
             <span className="font-mono text-[11px] font-bold uppercase tracking-[0.2em] text-ink">
-              Automation, unified
+              {t("flow.eyebrow", "Automation, unified")}
             </span>
           </div>
 
@@ -34,26 +42,21 @@ export function AuFlow() {
             className="mt-6 text-balance font-sans font-semibold leading-[0.92] tracking-[-0.04em] text-ink"
             style={{ fontSize: "clamp(2.25rem, 5.5vw, 4.5rem)" }}
           >
-            Six broken stacks —{" "}
-            <span className="bg-lime px-2">one</span> name that owns the
-            category.
+            {t(
+              "flow.headline",
+              "Six broken stacks — one name that owns the category.",
+            )}
           </h2>
 
           <p className="mt-6 max-w-md text-pretty text-base leading-relaxed text-ink md:text-lg">
-            Every AI team today is stitching agents, models and tools with duct
-            tape. The next decade belongs to the platform that makes them feel
-            like one system —{" "}
-            <span className="border-b-2 border-red">auto</span>matic and{" "}
-            <span className="border-b-2 border-red">unified</span>. This URL
-            says that out loud.
+            {t(
+              "flow.body",
+              "Every AI team today is stitching agents, models and tools with duct tape. The next decade belongs to the platform that makes them feel like one system — automatic and unified. This URL says that out loud.",
+            )}
           </p>
 
           <ul className="mt-10 space-y-3">
-            {[
-              ["01", "One URL. One spelling. One story."],
-              ["02", "No hyphens, numbers, or plurals."],
-              ["03", "Literal meaning = your product promise."],
-            ].map(([n, t], i) => (
+            {points.map(([n, label], i) => (
               <li
                 key={n}
                 style={{ ["--reveal-delay" as string]: `${i * 120 + 250}ms` }}
@@ -63,7 +66,7 @@ export function AuFlow() {
                   {n}
                 </span>
                 <span className="font-sans text-base font-medium text-ink md:text-lg">
-                  {t}
+                  {label}
                 </span>
               </li>
             ))}

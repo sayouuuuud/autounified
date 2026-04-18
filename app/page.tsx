@@ -8,20 +8,34 @@ import { AuSpecs } from "@/components/au-specs"
 import { AuPrice } from "@/components/au-price"
 import { AuSystem } from "@/components/au-system"
 import { AuFooter } from "@/components/au-footer"
+import { AuVisitTracker } from "@/components/au-visit-tracker"
+import { ContentProvider } from "@/components/content-provider"
+import { getContent } from "@/lib/content"
+import { triggerKeepAlive } from "@/lib/keep-alive"
 
-export default function Page() {
+// Always render with the freshest content so edits show up immediately.
+export const dynamic = "force-dynamic"
+
+export default async function Page() {
+  // Self-triggered heartbeat: every visit checks whether the DB needs a ping.
+  // Fire-and-forget; never blocks the render.
+  triggerKeepAlive()
+  const content = await getContent()
   return (
-    <main className="relative w-full min-h-screen overflow-x-hidden bg-background text-foreground">
-      <AuNav />
-      <AuHero />
-      <AuMarquee />
-      <AuFlow />
-      <AuThesis />
-      <AuAudience />
-      <AuSpecs />
-      <AuPrice />
-      <AuSystem />
-      <AuFooter />
-    </main>
+    <ContentProvider content={content}>
+      <main className="relative w-full min-h-screen overflow-x-hidden bg-background text-foreground">
+        <AuVisitTracker />
+        <AuNav />
+        <AuHero />
+        <AuMarquee />
+        <AuFlow />
+        <AuThesis />
+        <AuAudience />
+        <AuSpecs />
+        <AuPrice />
+        <AuSystem />
+        <AuFooter />
+      </main>
+    </ContentProvider>
   )
 }

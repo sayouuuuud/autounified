@@ -1,31 +1,33 @@
 "use client"
 
 import { AuGear } from "./au-gear"
-
-const specs: [string, string][] = [
-  ["Domain", "autounified.com"],
-  ["Top-level domain", ".com"],
-  ["Characters", "12"],
-  ["Syllables", "5 — au·to·u·ni·fied"],
-  ["Hyphens", "0"],
-  ["Numerals", "0"],
-  ["Pronunciation", "/ˈɔːtoʊ juːnɪfaɪd/"],
-  ["Semantic field", "AI · Agents · Orchestration"],
-  ["Trademark conflict", "None on USPTO (verify at close)"],
-  ["Transfer", "Escrow.com or registrar push"],
-  ["Included", "Full registrant transfer + auth code"],
-]
+import { useCopy } from "./content-provider"
 
 export function AuSpecs() {
+  const t = useCopy()
+  const specs: [string, string][] = [
+    [t("specs.row_1_label", "Domain"), t("specs.row_1_value", "autounified.com")],
+    [t("specs.row_2_label", "Top-level domain"), t("specs.row_2_value", ".com")],
+    [t("specs.row_3_label", "Characters"), t("specs.row_3_value", "12")],
+    [t("specs.row_4_label", "Syllables"), t("specs.row_4_value", "5 — au·to·u·ni·fied")],
+    [t("specs.row_5_label", "Hyphens"), t("specs.row_5_value", "0")],
+    [t("specs.row_6_label", "Numerals"), t("specs.row_6_value", "0")],
+    [t("specs.row_7_label", "Pronunciation"), t("specs.row_7_value", "/ˈɔːtoʊ juːnɪfaɪd/")],
+    [t("specs.row_8_label", "Semantic field"), t("specs.row_8_value", "AI · Agents · Orchestration")],
+    [t("specs.row_9_label", "Trademark conflict"), t("specs.row_9_value", "None on USPTO (verify at close)")],
+    [t("specs.row_10_label", "Transfer"), t("specs.row_10_value", "Escrow.com or registrar push")],
+    [t("specs.row_11_label", "Included"), t("specs.row_11_value", "Full registrant transfer + auth code")],
+  ]
+
   return (
     <section id="specs" className="relative overflow-hidden border-b-2 border-ink bg-paper">
       <div className="border-b-2 border-ink">
         <div className="mx-auto flex max-w-[1440px] items-baseline justify-between px-4 py-3 md:px-8">
           <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-ink">
-            § 04 / Specification
+            {t("specs.section_label", "§ 04 / Specification")}
           </p>
           <p className="hidden font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-ink md:block">
-            record sheet
+            {t("specs.section_hint", "record sheet")}
           </p>
         </div>
       </div>
@@ -42,10 +44,10 @@ export function AuSpecs() {
 
           <div className="relative flex items-center justify-between">
             <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-ink">
-              Certificate / AU-001
+              {t("specs.cert_label", "Certificate / AU-001")}
             </p>
             <span className="border-2 border-ink bg-ink px-2 py-[2px] font-mono text-[9px] font-bold uppercase tracking-[0.18em] text-lime">
-              Ed. I of I
+              {t("specs.edition_label", "Ed. I of I")}
             </span>
           </div>
 
@@ -54,19 +56,19 @@ export function AuSpecs() {
               className="font-sans font-semibold leading-[0.85] tracking-[-0.05em] text-ink"
               style={{ fontSize: "clamp(2.75rem, 7.5vw, 6.5rem)" }}
             >
-              auto
+              {t("hero.headline_part_1", "auto")}
             </div>
             <div
               className="font-sans font-semibold italic leading-[0.85] tracking-[-0.05em] text-ink"
               style={{ fontSize: "clamp(2.75rem, 7.5vw, 6.5rem)" }}
             >
-              unified
+              {t("hero.headline_part_2", "unified")}
             </div>
             <div
               className="mt-2 font-sans font-semibold leading-[0.85] tracking-[-0.05em] text-red"
               style={{ fontSize: "clamp(2rem, 5.5vw, 4.5rem)" }}
             >
-              .com
+              {t("hero.headline_part_3", ".com")}
             </div>
           </div>
 
@@ -75,11 +77,15 @@ export function AuSpecs() {
               <dt className="font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-ink">
                 Issued
               </dt>
-              <dd className="text-right font-mono text-sm text-ink">04.2026</dd>
+              <dd className="text-right font-mono text-sm text-ink">
+                {t("specs.issued", "04.2026")}
+              </dd>
               <dt className="font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-ink">
                 Lot
               </dt>
-              <dd className="text-right font-mono text-sm text-ink">AU-001</dd>
+              <dd className="text-right font-mono text-sm text-ink">
+                {t("specs.lot", "AU-001")}
+              </dd>
               <dt className="font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-ink">
                 Status
               </dt>
@@ -88,7 +94,7 @@ export function AuSpecs() {
                   <span aria-hidden className="absolute inline-flex h-full w-full bg-red pulse-ring" />
                   <span className="relative inline-flex h-2 w-2 bg-red" />
                 </span>
-                AVAILABLE
+                {t("specs.status", "AVAILABLE")}
               </dd>
             </dl>
           </div>
@@ -109,7 +115,7 @@ export function AuSpecs() {
           <dl className="mt-6 border-t-2 border-ink">
             {specs.map(([label, value], i) => (
               <div
-                key={label}
+                key={`${label}-${i}`}
                 style={{ ["--reveal-delay" as string]: `${i * 55 + 250}ms` }}
                 className="reveal reveal-up group grid grid-cols-12 items-baseline gap-x-4 border-b border-ink/40 py-4 transition-colors hover:bg-lime/60"
               >

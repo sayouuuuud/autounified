@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { Bricolage_Grotesque, JetBrains_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { AuScrollProgress } from "@/components/au-scroll-progress"
+import { getContent, pick } from "@/lib/content"
 import "./globals.css"
 
 const bricolage = Bricolage_Grotesque({
@@ -16,20 +17,41 @@ const jetbrains = JetBrains_Mono({
   display: "swap",
 })
 
-export const metadata: Metadata = {
-  title: "autounified.com — Premium AI Domain / $1,000 USD",
-  description:
+export async function generateMetadata(): Promise<Metadata> {
+  const content = await getContent()
+  const title = pick(
+    content,
+    "meta.title",
+    "autounified.com — Premium AI Domain / $1,000 USD",
+  )
+  const description = pick(
+    content,
+    "meta.description",
     "autounified.com — a one-word .com for the age of autonomous, unified AI. One lot. $1,000 USD.",
-  generator: "v0.app",
-  openGraph: {
-    title: "autounified.com — Premium AI Domain",
-    description:
-      "A one-word .com for the age of autonomous, unified AI. $1,000 USD.",
-    type: "website",
-  },
-  icons: {
-    icon: "/icon.svg",
-  },
+  )
+  const ogTitle = pick(
+    content,
+    "meta.og_title",
+    "autounified.com — Premium AI Domain",
+  )
+  const ogDescription = pick(
+    content,
+    "meta.og_description",
+    "A one-word .com for the age of autonomous, unified AI. $1,000 USD.",
+  )
+  return {
+    title,
+    description,
+    generator: "v0.app",
+    openGraph: {
+      title: ogTitle,
+      description: ogDescription,
+      type: "website",
+    },
+    icons: {
+      icon: "/icon.svg",
+    },
+  }
 }
 
 export default function RootLayout({
