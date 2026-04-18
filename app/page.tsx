@@ -11,11 +11,15 @@ import { AuFooter } from "@/components/au-footer"
 import { AuVisitTracker } from "@/components/au-visit-tracker"
 import { ContentProvider } from "@/components/content-provider"
 import { getContent } from "@/lib/content"
+import { triggerKeepAlive } from "@/lib/keep-alive"
 
 // Always render with the freshest content so edits show up immediately.
 export const dynamic = "force-dynamic"
 
 export default async function Page() {
+  // Self-triggered heartbeat: every visit checks whether the DB needs a ping.
+  // Fire-and-forget; never blocks the render.
+  triggerKeepAlive()
   const content = await getContent()
   return (
     <ContentProvider content={content}>

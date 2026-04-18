@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { isSupabaseConfigured, sbInsert } from "@/lib/supabase"
+import { triggerKeepAlive } from "@/lib/keep-alive"
 
 export const runtime = "nodejs"
 export const dynamic = "force-dynamic"
@@ -8,6 +9,8 @@ export async function POST(req: Request) {
   if (!isSupabaseConfigured()) {
     return NextResponse.json({ ok: false, skipped: true })
   }
+  // Piggy-back the heartbeat on every visit recorded.
+  triggerKeepAlive()
   try {
     const { path, referrer } = (await req.json().catch(() => ({}))) as {
       path?: string
