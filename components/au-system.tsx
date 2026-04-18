@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { AuGear } from "./au-gear"
+import { useCopy } from "./content-provider"
 
 const stations = [
   { id: "01", name: "INGEST", hint: "raw signals" },
@@ -33,6 +34,7 @@ function pad(n: number, w = 7) {
 }
 
 export function AuSystem() {
+  const t = useCopy()
   const [eps, setEps] = useState(1247)
   const [total, setTotal] = useState(1_234_567)
   const [active, setActive] = useState(0)
@@ -48,7 +50,6 @@ export function AuSystem() {
     return () => clearInterval(i)
   }, [])
 
-  // pipeline geometry
   const vbW = 920
   const vbH = 240
   const stationW = 130
@@ -60,16 +61,14 @@ export function AuSystem() {
 
   return (
     <section id="system" className="relative border-b-2 border-ink bg-paper">
-      {/* faint grid */}
       <div aria-hidden className="pointer-events-none absolute inset-0 grid-paper opacity-50" />
 
-      {/* --- header --- */}
       <div className="relative mx-auto grid max-w-[1440px] grid-cols-12 gap-0 border-b-2 border-ink">
         <div className="col-span-12 border-b-2 border-ink px-4 py-4 md:col-span-3 md:border-b-0 md:border-r-2 md:px-8">
           <div className="flex items-center gap-3">
             <AuGear size={22} teeth={10} direction="fast" color="var(--red)" />
             <p className="font-mono text-[11px] font-bold uppercase tracking-[0.24em] text-ink">
-              Final · The System, live
+              {t("system.eyebrow", "Final · The System, live")}
             </p>
           </div>
         </div>
@@ -78,47 +77,57 @@ export function AuSystem() {
             className="text-balance font-sans font-semibold leading-[0.9] tracking-[-0.04em] text-ink"
             style={{ fontSize: "clamp(2rem, 5.6vw, 4.75rem)" }}
           >
-            Watch it{" "}
+            {t("system.headline_1", "Watch it")}{" "}
             <span className="relative inline-block">
-              <span className="relative z-10">unify</span>
+              <span className="relative z-10">{t("system.headline_2", "unify")}</span>
               <span aria-hidden className="absolute inset-x-0 bottom-[0.08em] -z-0 h-[0.38em] bg-lime" />
             </span>
             .
             <br />
-            <span className="text-ink/60">A live view of the plane.</span>
+            <span className="text-ink/60">
+              {t("system.subline", "A live view of the plane.")}
+            </span>
           </h2>
           <p className="mt-5 max-w-2xl font-sans text-base font-medium leading-[1.35] text-ink/80 md:text-lg">
-            One domain. One control plane. Every signal in — one coordinated
-            output out. This is what the name literally does.
+            {t(
+              "system.body",
+              "One domain. One control plane. Every signal in — one coordinated output out. This is what the name literally does.",
+            )}
           </p>
         </div>
       </div>
 
-      {/* --- stat strip --- */}
       <div className="relative mx-auto grid max-w-[1440px] grid-cols-2 border-b-2 border-ink md:grid-cols-4">
         <StatCell
-          label="Events / sec"
+          label={t("system.stat_1", "Events / sec")}
           value={pad(eps, 5).trim()}
           trend="↑"
           accent="text-red"
           delayMs={0}
         />
-        <StatCell label="Agents online" value="06 / 06" live delayMs={120} />
-        <StatCell label="Uptime · 30d" value="99.97%" delayMs={240} />
         <StatCell
-          label="Processed · total"
+          label={t("system.stat_2", "Agents online")}
+          value="06 / 06"
+          live
+          delayMs={120}
+        />
+        <StatCell
+          label={t("system.stat_3", "Uptime · 30d")}
+          value="99.97%"
+          delayMs={240}
+        />
+        <StatCell
+          label={t("system.stat_4", "Processed · total")}
           value={total.toLocaleString("en-US")}
           mono
           delayMs={360}
         />
       </div>
 
-      {/* --- live pipeline panel (WHITE card surface) --- */}
       <div
         className="reveal reveal-up relative mx-auto max-w-[1440px] border-b-2 border-ink bg-card"
         style={{ ["--reveal-delay" as string]: "200ms" }}
       >
-        {/* panel header */}
         <div className="flex items-center justify-between gap-4 border-b-2 border-ink px-4 py-3 md:px-8">
           <div className="flex items-center gap-3">
             <span className="relative inline-flex h-2 w-2">
@@ -138,7 +147,6 @@ export function AuSystem() {
           </div>
         </div>
 
-        {/* pipeline svg */}
         <div className="relative px-4 py-8 md:px-8 md:py-10">
           <svg
             viewBox={`0 0 ${vbW} ${vbH}`}
@@ -146,7 +154,6 @@ export function AuSystem() {
             role="img"
             aria-label="Live automation pipeline"
           >
-            {/* faint grid */}
             <g stroke="var(--ink)" strokeOpacity="0.06" strokeWidth="1">
               {Array.from({ length: 20 }).map((_, i) => (
                 <line key={`gv${i}`} x1={i * 48} y1={0} x2={i * 48} y2={vbH} />
@@ -156,7 +163,6 @@ export function AuSystem() {
               ))}
             </g>
 
-            {/* top annotation line */}
             <line
               x1={startX}
               y1={40}
@@ -193,7 +199,6 @@ export function AuSystem() {
               /one-system
             </text>
 
-            {/* connectors + traveling tokens */}
             {stations.slice(0, -1).map((_, i) => {
               const x1 = startX + (i + 1) * stationW + i * gap
               const x2 = x1 + gap
@@ -218,7 +223,6 @@ export function AuSystem() {
                     fill="none"
                     stroke="none"
                   />
-                  {/* 3 staggered tokens per segment */}
                   {[0, 0.4, 0.8].map((delay, k) => (
                     <g key={k}>
                       <rect width="8" height="8" y="-4" fill="var(--red)" stroke="var(--ink)" strokeWidth="1">
@@ -237,13 +241,11 @@ export function AuSystem() {
               )
             })}
 
-            {/* stations */}
             {stations.map((s, i) => {
               const x = startX + i * (stationW + gap)
               const isActive = active === i
               return (
                 <g key={s.id}>
-                  {/* hint above */}
                   <text
                     x={x + stationW / 2}
                     y={rowY - 12}
@@ -258,7 +260,6 @@ export function AuSystem() {
                     {s.hint}
                   </text>
 
-                  {/* drop shadow when active */}
                   {isActive && (
                     <rect
                       x={x + 4}
@@ -270,7 +271,6 @@ export function AuSystem() {
                     />
                   )}
 
-                  {/* body */}
                   <rect
                     x={x}
                     y={rowY}
@@ -280,7 +280,6 @@ export function AuSystem() {
                     stroke="var(--ink)"
                     strokeWidth="2"
                   />
-                  {/* id chip */}
                   <rect
                     x={x + 8}
                     y={rowY + 8}
@@ -300,7 +299,6 @@ export function AuSystem() {
                   >
                     {s.id}
                   </text>
-                  {/* name */}
                   <text
                     x={x + stationW / 2}
                     y={rowY + 48}
@@ -313,7 +311,6 @@ export function AuSystem() {
                   >
                     {s.name}
                   </text>
-                  {/* status bar */}
                   <line
                     x1={x + 8}
                     y1={rowY + stationH - 10}
@@ -322,7 +319,6 @@ export function AuSystem() {
                     stroke="var(--ink)"
                     strokeWidth="1.5"
                   />
-                  {/* status light */}
                   <circle
                     cx={x + stationW - 14}
                     cy={rowY + stationH - 10}
@@ -342,7 +338,6 @@ export function AuSystem() {
               )
             })}
 
-            {/* output arrow */}
             <g>
               <line
                 x1={startX + totalW}
@@ -360,7 +355,6 @@ export function AuSystem() {
               />
             </g>
 
-            {/* bottom meta */}
             <text
               x={startX}
               y={rowY + stationH + 50}
@@ -388,7 +382,6 @@ export function AuSystem() {
           </svg>
         </div>
 
-        {/* task conveyor — stays darker for contrast, but inside the light panel */}
         <div className="relative overflow-hidden border-t-2 border-ink bg-ink py-3">
           <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-ink to-transparent" />
           <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-ink to-transparent" />
@@ -398,23 +391,23 @@ export function AuSystem() {
             style={{ ["--ticker-duration" as string]: "60s" }}
             aria-hidden="true"
           >
-            {[...tasks, ...tasks, ...tasks].map((t, i) => (
+            {[...tasks, ...tasks, ...tasks].map((tk, i) => (
               <div
                 key={i}
                 className="flex items-center gap-3 border-2 border-paper/30 bg-ink px-3 py-2"
               >
                 <span
                   className={`border-2 border-ink px-1.5 py-[2px] font-mono text-[9px] font-bold uppercase tracking-[0.14em] ${stateStyle(
-                    t.state,
+                    tk.state,
                   )}`}
                 >
-                  {t.state}
+                  {tk.state}
                 </span>
                 <span className="font-mono text-[11px] font-bold uppercase tracking-[0.12em] text-paper/60">
-                  {t.id}
+                  {tk.id}
                 </span>
                 <span className="font-mono text-[11px] text-paper">
-                  {t.label}
+                  {tk.label}
                 </span>
               </div>
             ))}
