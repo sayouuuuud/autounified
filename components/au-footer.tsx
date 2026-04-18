@@ -42,8 +42,15 @@ export function AuFooter() {
                 strokeOpacity="0.4"
                 strokeWidth="2"
                 strokeDasharray="8 6"
-                className="dash-flow"
-              />
+              >
+                <animate
+                  attributeName="stroke-dashoffset"
+                  from="0"
+                  to="-200"
+                  dur="3s"
+                  repeatCount="indefinite"
+                />
+              </line>
             </svg>
           </div>
           <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-paper/60">
@@ -60,8 +67,15 @@ export function AuFooter() {
                 strokeOpacity="0.4"
                 strokeWidth="2"
                 strokeDasharray="8 6"
-                className="dash-flow"
-              />
+              >
+                <animate
+                  attributeName="stroke-dashoffset"
+                  from="0"
+                  to="-200"
+                  dur="3s"
+                  repeatCount="indefinite"
+                />
+              </line>
             </svg>
           </div>
           <AuGear size={24} teeth={10} direction="ccw" className="text-red" />

@@ -214,9 +214,16 @@ export function AuSystem() {
                     strokeOpacity="0.55"
                     strokeWidth="2"
                     strokeDasharray="6 5"
-                    className="dash-flow"
-                    style={{ animationDelay: `${i * 0.15}s` }}
-                  />
+                  >
+                    <animate
+                      attributeName="stroke-dashoffset"
+                      from="0"
+                      to="-200"
+                      dur="3s"
+                      begin={`${i * 0.15}s`}
+                      repeatCount="indefinite"
+                    />
+                  </line>
                   <path
                     id={pathId}
                     d={`M ${x1} ${rowY + stationH / 2} L ${x2} ${rowY + stationH / 2}`}
@@ -347,8 +354,15 @@ export function AuSystem() {
                 stroke="var(--ink)"
                 strokeWidth="2"
                 strokeDasharray="6 5"
-                className="dash-flow"
-              />
+              >
+                <animate
+                  attributeName="stroke-dashoffset"
+                  from="0"
+                  to="-200"
+                  dur="3s"
+                  repeatCount="indefinite"
+                />
+              </line>
               <polygon
                 points={`${vbW - 20},${rowY + stationH / 2} ${vbW - 30},${rowY + stationH / 2 - 6} ${vbW - 30},${rowY + stationH / 2 + 6}`}
                 fill="var(--ink)"

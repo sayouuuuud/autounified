@@ -366,23 +366,4 @@
 .pop { animation: pop 260ms ease-out; }
 
 /* ---------- reduced motion ----------
-   Keep non-vestibular animations (slow fades, horizontal marquees,
-   slow gear spins, opacity shifts). Only disable rapid / flashing /
-   parallax-y motion so the page still feels alive without being
-   hostile to users with vestibular sensitivity. */
-@media (prefers-reduced-motion: reduce) {
-  .spin-fast, .pulse-ring, .tick, .orbit, .scan, .dash-flow, .dash-flow-slow,
-  .slide-in-r, .pop {
-    animation: none !important;
-  }
-  .magnetic { transition: none !important; transform: none !important; }
-  /* Reveal system: replace slide+fade with a simple shorter fade. */
-  .reveal, .reveal-clip, .reveal-line, .reveal-count {
-    animation-name: au-reveal-opacity-only !important;
-    animation-duration: 450ms !important;
-  }
-  @keyframes au-reveal-opacity-only {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-}
+   (Removed to allow animations on all devices regardless of OS settings) */

@@ -1,10 +1,10 @@
 "use client"
 
 type GearProps = {
-  size?: number
+  size?: number | string
   teeth?: number
   color?: string
-  direction?: "cw" | "ccw" | "fast"
+  direction?: "cw" | "ccw" | "fast" | "static"
   className?: string
   strokeWidth?: number
 }
@@ -24,7 +24,7 @@ export function AuGear({
   strokeWidth = 3,
 }: GearProps) {
   const spinClass =
-    direction === "cw" ? "spin-cw" : direction === "ccw" ? "spin-ccw" : "spin-fast"
+    direction === "cw" ? "spin-cw" : direction === "ccw" ? "spin-ccw" : direction === "fast" ? "spin-fast" : ""
 
   const R = 42 // outer radius of tooth ring
   const r = 34 // gear body radius

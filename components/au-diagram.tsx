@@ -96,9 +96,17 @@ export function AuDiagram({
             <path
               key={i}
               d={d}
-              className="dash-flow"
-              style={{ animationDelay: `${i * 0.25}s` }}
-            />
+              strokeDasharray="8 6"
+            >
+              <animate
+                attributeName="stroke-dashoffset"
+                from="0"
+                to="-200"
+                dur="3s"
+                begin={`${i * 0.25}s`}
+                repeatCount="indefinite"
+              />
+            </path>
           )
         })}
       </g>
@@ -236,8 +244,16 @@ export function AuDiagram({
           y2={165}
           stroke={ink}
           strokeWidth="2"
-          className="dash-flow"
-        />
+          strokeDasharray="8 6"
+        >
+          <animate
+            attributeName="stroke-dashoffset"
+            from="0"
+            to="-200"
+            dur="3s"
+            repeatCount="indefinite"
+          />
+        </line>
         {/* arrow head */}
         <polygon
           points={`${vbW - 20},165 ${vbW - 30},161 ${vbW - 30},169`}

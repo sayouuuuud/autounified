@@ -78,13 +78,14 @@ export function AuHero() {
           >
             <span className="inline-flex items-center gap-3 md:gap-6">
               <span>{t("hero.headline_part_1", "auto")}</span>
-              <AuGear
-                size={96}
-                teeth={12}
-                direction="fast"
-                color="var(--ink)"
-                className="shrink-0"
-              />
+              <div className="w-16 h-16 md:w-24 md:h-24 shrink-0">
+                <AuGear
+                  size="100%"
+                  teeth={12}
+                  direction="static"
+                  color="var(--ink)"
+                />
+              </div>
             </span>
             <span className="italic">{t("hero.headline_part_2", "unified")}</span>
             <span className="text-red">{t("hero.headline_part_3", ".com")}</span>

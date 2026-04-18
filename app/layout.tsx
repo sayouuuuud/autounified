@@ -64,6 +64,7 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${bricolage.variable} ${jetbrains.variable} bg-background`}
+      suppressHydrationWarning
     >
       <body className="font-sans antialiased">
         <AuScrollProgress />
