@@ -49,12 +49,8 @@ export async function generateMetadata(): Promise<Metadata> {
       type: "website",
     },
     icons: {
-<<<<<<< HEAD
       icon: "/icon.png",
       apple: "/apple-icon.png",
-=======
-      icon: "/icon.svg",
->>>>>>> f8305241a7995b3647bef24161530205e9bdae05
     },
   }
 }
