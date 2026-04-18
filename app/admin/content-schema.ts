@@ -105,6 +105,14 @@ export const FIELD_HINTS: Record<string, FieldHint> = {
 
   // Footer
   "footer.manifesto": { label: "Footer manifesto line", multiline: true },
+  "footer.contact_label": { label: "Footer — Contact label" },
+  "footer.process_label": { label: "Footer — Process label" },
+  "footer.process_1": { label: "Footer — Process line 1" },
+  "footer.process_2": { label: "Footer — Process line 2" },
+  "footer.process_3": { label: "Footer — Process line 3" },
+  "footer.sections_label": { label: "Footer — Sections label" },
+  "footer.link_acquire": { label: "Footer link — Acquire" },
+  "footer.transmission_label": { label: "Footer — End transmission label" },
   "footer.copyright": { label: "Copyright line" },
   "footer.lot": { label: "Lot line" },
 }

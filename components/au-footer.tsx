@@ -14,7 +14,7 @@ export function AuFooter() {
     [t("nav.link_buyers", "Buyers"), "#buyers"],
     [t("nav.link_specs", "Specs"), "#specs"],
     [t("nav.link_system", "System"), "#system"],
-    ["Acquire", "#acquire"],
+    [t("footer.link_acquire", "Acquire"), "#acquire"],
   ]
 
   // Split domain for the giant SVG wordmark so the .com color stays red.
@@ -47,7 +47,7 @@ export function AuFooter() {
             </svg>
           </div>
           <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-paper/60">
-            end · transmission
+            {t("footer.transmission_label", "end · transmission")}
           </span>
           <div className="relative h-[2px] flex-1 overflow-hidden">
             <svg className="h-full w-full" preserveAspectRatio="none">
