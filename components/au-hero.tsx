@@ -74,7 +74,7 @@ export function AuHero() {
 
           <h1
             className="reveal reveal-up mt-6 break-words font-sans font-semibold leading-[0.82] tracking-[-0.055em] text-ink"
-            style={{ fontSize: "clamp(2.75rem, 11vw, 12rem)", ["--reveal-delay" as string]: "80ms" }}
+            style={{ fontSize: "clamp(2.75rem, 11vw, 9.5rem)", ["--reveal-delay" as string]: "80ms" }}
           >
             <span className="inline-flex items-center gap-3 md:gap-6">
               <span>{t("hero.headline_part_1", "auto")}</span>
