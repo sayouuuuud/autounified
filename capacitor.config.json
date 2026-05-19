@@ -1,0 +1,9 @@
+{
+  "appId": "com.autounified.app",
+  "appName": "autounified",
+  "webDir": "www",
+  "server": {
+    "url": "https://autounified.com",
+    "cleartext": false
+  }
+}
